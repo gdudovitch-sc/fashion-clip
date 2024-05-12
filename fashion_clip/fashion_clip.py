@@ -10,7 +10,6 @@ import fashion_clip.attention_map as attention_map
 import PIL
 import hashlib
 import random
-from annoy import AnnoyIndex
 import time
 import json
 import validators
@@ -123,13 +122,7 @@ class FashionCLIP:
             self.textual_vectors = self.textual_vectors / np.linalg.norm(self.textual_vectors, ord=2, axis=-1, keepdims=True)
             print('Done!')
         if approx and dataset:
-            print('Building Approx NN index...', end='')
-            # build approx NN
-            self.nn_index = AnnoyIndex(512, "dot")
-            for idx, v in enumerate(self.image_vectors):
-                self.nn_index.add_item(idx, v)
-            self.nn_index.build(50)  # 10 trees
-            print('Done!')
+            raise Exception('Annoy not supported')
 
     def _generate_vectors(self, cache=True):
 
